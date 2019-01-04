@@ -38,13 +38,32 @@ Singleton::~Singleton()
 void MyFunction()
 {
     // use the singleton class
-    Singleton * MySingleton = &Singleton::instance();   
-    MySingleton->Test();    
+    Singleton * MySingleton = &Singleton::instance(); 
+    
+    MySingleton->Test();
+    std::cout << MySingleton << std::endl;
+    MySingleton = nullptr;
 }
 
 
+struct Test 
+{
+    Test():ins(&Singleton::instance()) 
+    {
+        std::cout << "Test ctor" << std::endl;
+    }
+    ~Test() 
+    { 
+        std::cout << "Test dtor" << std::endl;
+        //ins = nullptr;
+    }
+    Singleton* ins;
+};
+
 int main()
 {
-    MyFunction();
+    Test tt;
+    //MyFunction();
+    
     return 0;
 }
